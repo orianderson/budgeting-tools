@@ -8,11 +8,12 @@ generator client {
     recursive_type_depth = 5
 }
 
-model Insumos {
+model Supplies {
     id          String @id @default(uuid())
     code        String
     description String
+    unit        String
     price       Float
 
-    @@map("insumo")
+    @@map("supplies")
 }
