@@ -13,8 +13,8 @@ class Supplies:
         return pd.read_excel(self.filename)
 
     async def save_in_database(self):
-        df = self.get_insumos()
         client = await db()
+        df = self.get_insumos()
 
         for i in range(df.shape[0]):
             supply = {
