@@ -1,0 +1,44 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider             = "prisma-client-py"
+    recursive_type_depth = 5
+}
+
+model Supplies {
+    id          String @id @default(uuid())
+    code        String
+    description String
+    unit        String
+    price       Float
+
+    @@map("supplies")
+}
+
+model Compositions {
+    id          String   @id
+    group       String
+    description String
+    unit        String
+    price       Float
+    inputs      Inputs[]
+
+    @@map("composition")
+}
+
+model Inputs {
+    id           String        @id @default(uuid())
+    input        String
+    composition  String?
+    type         String
+    description  String
+    unit         String
+    coefficient  Float
+    total        Float
+    compositions Compositions? @relation(fields: [composition], references: [id])
+
+    @@map("input")
+}
